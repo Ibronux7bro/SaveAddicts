@@ -197,3 +197,5 @@ Detailed companion documentation is provided within the project:
 - [`FIREBASE_SCHEMA.md`](file:///d:/SOAD/FIREBASE_SCHEMA.md) — Complete proposed Firebase Realtime Database schema with JSON representation.
 - [`SECURITY_NOTES.md`](file:///d:/SOAD/SECURITY_NOTES.md) — Role-based access control rules, pseudonymity architecture, and E2EE roadmap.
 - [`TEST_PLAN.md`](file:///d:/SOAD/TEST_PLAN.md) — Test cases covering functional, security, usability, and integration boundaries.
+#   S a v e A d d i c t s  
+ 
