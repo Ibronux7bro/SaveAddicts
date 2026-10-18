@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name=".SaveAddictsApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.SaveAddicts">
+
+        <!-- Splash / Entry Point -->
+        <activity
+            android:name=".ui.SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+
+        <!-- Authentication & Onboarding (FR1, FR2) -->
+        <activity
+            android:name=".ui.LoginActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".ui.RegisterActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".ui.SubstanceSelectionActivity"
+            android:exported="false" />
+
+        <!-- Patient Workflow (FR3, FR4, FR5, FR6) -->
+        <activity
+            android:name=".ui.PatientMainActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.BookAppointmentActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".ui.ChatActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".ui.ResourceDetailActivity"
+            android:exported="false" />
+
+        <!-- Psychiatrist Workflow (FR7) -->
+        <activity
+            android:name=".ui.PsychiatristMainActivity"
+            android:exported="false" />
+
+        <!-- Physician Workflow (FR8, FR9) -->
+        <activity
+            android:name=".ui.PhysicianMainActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.UpdateRecoveryActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Admin Workflow (FR10) -->
+        <activity
+            android:name=".ui.AdminMainActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.AddEditResourceActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+    </application>
+
+</manifest>

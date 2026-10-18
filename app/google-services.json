@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "281674360839",
+    "project_id": "saveaddicts",
+    "storage_bucket": "saveaddicts.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:281674360839:android:79047caa8ce1128778a2a2",
+        "android_client_info": {
+          "package_name": "com.saveaddicts.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACKlw9c9mEdKnew7VVZskzGK2egixlX4w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

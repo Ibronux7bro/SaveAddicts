@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Save Addicts</string>
+    <string name="app_tagline">Confidential Addiction Recovery &amp; Care Platform</string>
+    
+    <!-- Demo / Environment Warning -->
+    <string name="demo_banner_title">Demo Mode (Local Data)</string>
+    <string name="demo_banner_desc">Firebase backend configuration pending. Operating in local sandbox.</string>
+    
+    <!-- Authentication & Registration -->
+    <string name="login_title">Welcome Back</string>
+    <string name="login_subtitle">Sign in to your confidential recovery account</string>
+    <string name="register_title">Anonymous Registration</string>
+    <string name="register_subtitle">No ID cards, phone numbers, or real names required</string>
+    <string name="pseudonym_label">Pseudonym / Anonymous Nickname</string>
+    <string name="pseudonym_hint">e.g. HopeSeeker42, Phoenix88</string>
+    <string name="email_label">Email Address (for account recovery &amp; login)</string>
+    <string name="email_hint">name@example.com</string>
+    <string name="password_label">Secure Password</string>
+    <string name="password_hint">Minimum 6 characters</string>
+    <string name="confirm_password_label">Confirm Password</string>
+    <string name="btn_login">Sign In</string>
+    <string name="btn_register">Create Anonymous Account</string>
+    <string name="prompt_have_account">Already have an account? Sign In</string>
+    <string name="prompt_need_account">Need confidential support? Register Anonymously</string>
+    <string name="quick_demo_login">Quick Role Login (Evaluation Mode):</string>
+    
+    <!-- Substance Selection -->
+    <string name="substance_selection_title">Tailor Your Support</string>
+    <string name="substance_selection_subtitle">Select your primary substance of concern to personalize clinical advice, resources, and progress tracking.</string>
+    <string name="substance_alcohol">Alcohol</string>
+    <string name="substance_opioids">Opioids</string>
+    <string name="substance_cannabis">Cannabis</string>
+    <string name="substance_other">Other / Polysubstance</string>
+    <string name="substance_all">All Categories</string>
+    <string name="btn_continue">Continue to Dashboard</string>
+    
+    <!-- Roles -->
+    <string name="role_patient">Patient</string>
+    <string name="role_psychiatrist">Psychiatrist</string>
+    <string name="role_physician">Physician</string>
+    <string name="role_admin">System Admin</string>
+    
+    <!-- Navigation & Tabs -->
+    <string name="nav_recovery">Recovery</string>
+    <string name="nav_appointments">Appointments</string>
+    <string name="nav_messages">Messages</string>
+    <string name="nav_library">Library</string>
+    <string name="nav_sessions">Sessions</string>
+    <string name="nav_patients">Patients</string>
+    <string name="nav_content">Content</string>
+    <string name="action_logout">Sign Out</string>
+    
+    <!-- Optimism Graph & Recovery -->
+    <string name="optimism_graph_title">Recovery Optimism Timeline</string>
+    <string name="optimism_graph_subtitle">Clinician-evaluated progress indicator over time</string>
+    <string name="optimism_score_format">%d%% Optimism</string>
+    <string name="empty_recovery_title">No Recovery Records Yet</string>
+    <string name="empty_recovery_desc">Your clinical recovery records and Optimism Graph will appear here once your consulting physician conducts an assessment.</string>
+    <string name="latest_health_status">Current Clinical Status</string>
+    <string name="clinical_assessment_restricted">Clinical assessment is managed exclusively by licensed physicians.</string>
+    
+    <!-- Appointments -->
+    <string name="appointments_title">Physician Consultations</string>
+    <string name="book_appointment_title">Book In-Person Consultation</string>
+    <string name="select_physician">Select Consulting Physician</string>
+    <string name="select_date">Select Date</string>
+    <string name="select_time_slot">Available Time Slots</string>
+    <string name="appointment_notes_hint">Reason for consultation or notes (optional)</string>
+    <string name="btn_confirm_booking">Confirm Appointment</string>
+    <string name="btn_cancel_appointment">Cancel Consultation</string>
+    <string name="empty_appointments">No scheduled appointments</string>
+    
+    <!-- Messaging -->
+    <string name="messages_title">Psychiatrist Messaging</string>
+    <string name="e2ee_badge">End-to-End Encryption Interface</string>
+    <string name="e2ee_disclaimer">Demo encryption active. Production E2EE requires dedicated key exchange.</string>
+    <string name="type_message_hint">Type your confidential message…</string>
+    <string name="btn_send">Send</string>
+    <string name="empty_messages">No conversations started yet</string>
+    
+    <!-- Educational Library -->
+    <string name="library_title">Educational Library</string>
+    <string name="library_subtitle">Culturally sensitive videos, books, and articles</string>
+    <string name="filter_substance">Substance</string>
+    <string name="filter_type">Resource Type</string>
+    <string name="filter_age">Age Group</string>
+    <string name="sample_content_badge">Sample Educational Content</string>
+    <string name="empty_library">No educational resources match the selected filter</string>
+    
+    <!-- Admin & Clinical -->
+    <string name="admin_content_title">Content Management</string>
+    <string name="btn_add_resource">Add New Educational Resource</string>
+    <string name="physician_dashboard_title">Physician Clinical Portal</string>
+    <string name="psychiatrist_dashboard_title">Psychiatrist Consultation Portal</string>
+    <string name="btn_update_recovery">Record Clinical Progress</string>
+</resources>
