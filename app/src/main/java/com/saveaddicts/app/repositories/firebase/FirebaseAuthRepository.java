@@ -22,13 +22,14 @@ import com.saveaddicts.app.repositories.Callback;
  */
 public class FirebaseAuthRepository implements AuthRepository {
 
+    public static final String DATABASE_URL = "https://saveaddicts-default-rtdb.europe-west1.firebasedatabase.app";
     private final FirebaseAuth firebaseAuth;
     private final DatabaseReference usersRef;
     private UserProfile cachedProfile;
 
     public FirebaseAuthRepository() {
         this.firebaseAuth = FirebaseAuth.getInstance();
-        this.usersRef = FirebaseDatabase.getInstance().getReference("users");
+        this.usersRef = FirebaseDatabase.getInstance(DATABASE_URL).getReference("users");
     }
 
     @Override

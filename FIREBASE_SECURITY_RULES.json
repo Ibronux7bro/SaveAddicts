@@ -1,0 +1,76 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "users": {
+      ".indexOn": ["role"],
+      ".read": "auth != null && (root.child('users').child(auth.uid).child('role').val() === 'ADMIN' || root.child('users').child(auth.uid).child('role').val() === 'PHYSICIAN' || root.child('users').child(auth.uid).child('role').val() === 'PSYCHIATRIST')",
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || root.child('users').child(auth.uid).child('role').val() === 'ADMIN')",
+        ".write": "auth != null && ((auth.uid === $uid && newData.exists()) || root.child('users').child(auth.uid).child('role').val() === 'ADMIN')",
+        ".validate": "newData.exists() && newData.hasChildren(['uid', 'pseudonym', 'email', 'role']) && newData.child('uid').val() === $uid",
+        "role": {
+          ".validate": "(!data.exists() && newData.val() === 'PATIENT') || (data.exists() && newData.val() === data.val()) || (auth != null && root.child('users').child(auth.uid).child('role').val() === 'ADMIN')"
+        },
+        "email": {
+          ".validate": "newData.isString() && newData.val().length > 3"
+        },
+        "pseudonym": {
+          ".validate": "newData.isString() && newData.val().length >= 3"
+        }
+      }
+    },
+    "recovery_records": {
+      "$patientId": {
+        ".read": "auth != null && (auth.uid === $patientId || root.child('users').child(auth.uid).child('role').val() === 'PHYSICIAN' || root.child('users').child(auth.uid).child('role').val() === 'ADMIN')",
+        ".write": "auth != null && (root.child('users').child(auth.uid).child('role').val() === 'PHYSICIAN' || root.child('users').child(auth.uid).child('role').val() === 'ADMIN')",
+        "$recordId": {
+          ".validate": "newData.exists() && newData.hasChildren(['id', 'patientId', 'clinicianId', 'optimismScore', 'healthStatus', 'timestamp']) && newData.child('patientId').val() === $patientId && (!data.exists() || data.child('patientId').val() === newData.child('patientId').val()) && newData.child('optimismScore').isNumber() && newData.child('optimismScore').val() >= 0 && newData.child('optimismScore').val() <= 100"
+        }
+      }
+    },
+    "appointments": {
+      ".indexOn": ["patientId", "physicianId"],
+      ".read": "auth != null && (root.child('users').child(auth.uid).child('role').val() === 'ADMIN' || (query.orderByChild == 'patientId' && query.equalTo == auth.uid) || (query.orderByChild == 'physicianId' && query.equalTo == auth.uid))",
+      "$appointmentId": {
+        ".read": "auth != null && (data.child('patientId').val() === auth.uid || data.child('physicianId').val() === auth.uid || root.child('users').child(auth.uid).child('role').val() === 'ADMIN')",
+        ".write": "auth != null && newData.exists() && (!data.exists() ? (newData.child('patientId').val() === auth.uid && newData.child('status').val() === 'PENDING') : (root.child('users').child(auth.uid).child('role').val() === 'ADMIN' || (data.child('patientId').val() === auth.uid && newData.child('status').val() === 'CANCELLED') || (data.child('physicianId').val() === auth.uid && (newData.child('status').val() === 'CONFIRMED' || newData.child('status').val() === 'CANCELLED' || newData.child('status').val() === 'COMPLETED'))))",
+        ".validate": "newData.hasChildren(['patientId', 'physicianId', 'date', 'timeSlot', 'status']) && (!data.exists() || (newData.child('patientId').val() === data.child('patientId').val() && newData.child('physicianId').val() === data.child('physicianId').val() && newData.child('date').val() === data.child('date').val() && newData.child('timeSlot').val() === data.child('timeSlot').val()))"
+      }
+    },
+    "conversations": {
+      ".indexOn": ["patientId", "psychiatristId"],
+      ".read": "auth != null && (root.child('users').child(auth.uid).child('role').val() === 'ADMIN' || (query.orderByChild == 'patientId' && query.equalTo == auth.uid) || (query.orderByChild == 'psychiatristId' && query.equalTo == auth.uid))",
+      "$conversationId": {
+        ".read": "auth != null && (data.child('patientId').val() === auth.uid || data.child('psychiatristId').val() === auth.uid || root.child('users').child(auth.uid).child('role').val() === 'ADMIN')",
+        ".write": "auth != null && newData.exists() && (!data.exists() ? (newData.child('patientId').val() === auth.uid || newData.child('psychiatristId').val() === auth.uid) : (data.child('patientId').val() === auth.uid || data.child('psychiatristId').val() === auth.uid || root.child('users').child(auth.uid).child('role').val() === 'ADMIN'))",
+        ".validate": "newData.hasChildren(['patientId', 'psychiatristId']) && (!data.exists() || (newData.child('patientId').val() === data.child('patientId').val() && newData.child('psychiatristId').val() === data.child('psychiatristId').val()))"
+      }
+    },
+    "messages": {
+      "$conversationId": {
+        ".read": "auth != null && (root.child('conversations').child($conversationId).child('patientId').val() === auth.uid || root.child('conversations').child($conversationId).child('psychiatristId').val() === auth.uid || root.child('users').child(auth.uid).child('role').val() === 'ADMIN')",
+        "$messageId": {
+          ".write": "auth != null && !data.exists() && newData.exists() && (root.child('conversations').child($conversationId).child('patientId').val() === auth.uid || root.child('conversations').child($conversationId).child('psychiatristId').val() === auth.uid) && newData.child('senderId').val() === auth.uid",
+          ".validate": "newData.hasChildren(['conversationId', 'senderId', 'messageText', 'timestamp']) && newData.child('conversationId').val() === $conversationId"
+        }
+      }
+    },
+    "educational_resources": {
+      ".read": "auth != null",
+      ".write": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'ADMIN'",
+      "$resourceId": {
+        ".validate": "newData.hasChildren(['id', 'title', 'resourceType', 'substanceType', 'ageGroup'])"
+      }
+    },
+    "consultation_sessions": {
+      ".indexOn": ["psychiatristId", "status", "patientId"],
+      ".read": "auth != null && (root.child('users').child(auth.uid).child('role').val() === 'ADMIN' || root.child('users').child(auth.uid).child('role').val() === 'PSYCHIATRIST' || (query.orderByChild == 'patientId' && query.equalTo == auth.uid))",
+      "$sessionId": {
+        ".read": "auth != null && (data.child('patientId').val() === auth.uid || data.child('psychiatristId').val() === auth.uid || root.child('users').child(auth.uid).child('role').val() === 'PSYCHIATRIST' || root.child('users').child(auth.uid).child('role').val() === 'ADMIN')",
+        ".write": "auth != null && newData.exists() && (!data.exists() ? (newData.child('patientId').val() === auth.uid && newData.child('status').val() === 'REQUESTED') : (root.child('users').child(auth.uid).child('role').val() === 'ADMIN' || (root.child('users').child(auth.uid).child('role').val() === 'PSYCHIATRIST' && (newData.child('status').val() === 'ACCEPTED' || newData.child('status').val() === 'IN_PROGRESS' || newData.child('status').val() === 'COMPLETED' || newData.child('status').val() === 'DECLINED')) || (data.child('patientId').val() === auth.uid && newData.child('status').val() === 'DECLINED')))",
+        ".validate": "newData.hasChildren(['patientId', 'status']) && (!data.exists() || newData.child('patientId').val() === data.child('patientId').val())"
+      }
+    }
+  }
+}

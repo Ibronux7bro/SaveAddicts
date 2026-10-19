@@ -2,6 +2,8 @@ package com.saveaddicts.app.repositories.firebase;
 
 import androidx.annotation.NonNull;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,7 +37,7 @@ public class FirebaseRealtimeRepository implements
     private final DatabaseReference sessionsRef;
 
     public FirebaseRealtimeRepository() {
-        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        FirebaseDatabase db = FirebaseDatabase.getInstance(FirebaseAuthRepository.DATABASE_URL);
         this.rootRef = db.getReference();
         this.usersRef = rootRef.child("users");
         this.recoveryRef = rootRef.child("recovery_records");
@@ -275,25 +277,54 @@ public class FirebaseRealtimeRepository implements
 
     @Override
     public void getConversationsForUser(String userId, Callback<List<Conversation>> callback) {
-        conversationsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<Conversation> list = new ArrayList<>();
-                for (DataSnapshot child : snapshot.getChildren()) {
-                    Conversation c = child.getValue(Conversation.class);
-                    if (c != null && (userId.equals(c.getPatientId()) || userId.equals(c.getPsychiatristId()))) {
-                        list.add(c);
-                    }
-                }
-                Collections.sort(list, (a, b) -> Long.compare(b.getLastMessageTimestamp(), a.getLastMessageTimestamp()));
-                callback.onSuccess(list);
-            }
+        if (userId == null || userId.trim().isEmpty()) {
+            callback.onError(new IllegalArgumentException("User ID cannot be null or empty."));
+            return;
+        }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                callback.onError(error.toException());
-            }
-        });
+        Map<String, Conversation> convMap = new LinkedHashMap<>();
+
+        // Query conversations where user is the patient (complying with Security Rules)
+        conversationsRef.orderByChild("patientId").equalTo(userId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot patientSnap) {
+                        for (DataSnapshot child : patientSnap.getChildren()) {
+                            Conversation c = child.getValue(Conversation.class);
+                            if (c != null && c.getId() != null) {
+                                convMap.put(c.getId(), c);
+                            }
+                        }
+
+                        // Query conversations where user is the psychiatrist (complying with Security Rules)
+                        conversationsRef.orderByChild("psychiatristId").equalTo(userId)
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot psychSnap) {
+                                        for (DataSnapshot child : psychSnap.getChildren()) {
+                                            Conversation c = child.getValue(Conversation.class);
+                                            if (c != null && c.getId() != null) {
+                                                convMap.put(c.getId(), c);
+                                            }
+                                        }
+
+                                        List<Conversation> list = new ArrayList<>(convMap.values());
+                                        Collections.sort(list, (a, b) -> Long.compare(b.getLastMessageTimestamp(), a.getLastMessageTimestamp()));
+                                        callback.onSuccess(list);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        callback.onError(error.toException());
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        callback.onError(error.toException());
+                    }
+                });
     }
 
     @Override
@@ -343,7 +374,24 @@ public class FirebaseRealtimeRepository implements
     public void getOrCreateConversation(String patientId, String patientPseudonym,
                                         String psychiatristId, String psychiatristName,
                                         Callback<Conversation> callback) {
-        conversationsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        if (patientId == null || psychiatristId == null) {
+            callback.onError(new IllegalArgumentException("Patient ID and Psychiatrist ID are required."));
+            return;
+        }
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String currentUid = currentUser != null ? currentUser.getUid() : null;
+
+        // Choose query indexed field matching the authenticated caller's identity
+        // to strictly comply with Realtime Database Security Rules
+        Query query;
+        if (currentUid != null && currentUid.equals(psychiatristId)) {
+            query = conversationsRef.orderByChild("psychiatristId").equalTo(psychiatristId);
+        } else {
+            query = conversationsRef.orderByChild("patientId").equalTo(patientId);
+        }
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot child : snapshot.getChildren()) {

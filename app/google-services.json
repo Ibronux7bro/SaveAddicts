@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "281674360839",
+    "firebase_url": "https://saveaddicts-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "saveaddicts",
     "storage_bucket": "saveaddicts.firebasestorage.app"
   },
