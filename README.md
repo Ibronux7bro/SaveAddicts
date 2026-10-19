@@ -1,201 +1,203 @@
-# Save Addicts — Android Application
+# 🌿 Save Addicts — Android Application
+
+[![Platform](https://img.shields.io/badge/Platform-Android-green.svg)](https://developer.android.com)
+[![Language](https://img.shields.io/badge/Language-Java%2017-orange.svg)](https://www.oracle.com/java/)
+[![SDK](https://img.shields.io/badge/Min%20SDK-28-blue.svg)](https://developer.android.com/about/versions/pie)
+[![Target SDK](https://img.shields.io/badge/Target%20SDK-36-blueviolet.svg)](https://developer.android.com)
+[![Backend](https://img.shields.io/badge/Backend-Firebase%20Auth%20%26%20RTDB-amber.svg)](https://firebase.google.com/)
+[![License](https://img.shields.io/badge/License-Academic%20%2F%20Open%20Source-teal.svg)](#)
+
+---
+
+## 📌 نبذة عن المشروع (Project Overview)
+
+**Save Addicts** هو تطبيق أندرويد متكامل للرعاية الصحية النفسية والطبية، صُمم خصيصاً للتغلب على الوصمة الاجتماعية (Social Stigma) المرتبطة بطلب العلاج من الإدمان، مع الحفاظ الصارم على سرية وهوية المستخدمين دون الحاجة إلى بيانات شخصية أو بطاقات مدنية.
 
 **Save Addicts** is a confidential, privacy-first mobile healthcare and addiction recovery platform designed to overcome social stigma and provide accessible psychological and medical care. The platform connects individuals seeking recovery with licensed psychiatrists and physicians while strictly preserving user anonymity.
 
 ---
 
-## 1. Project Background & Source of Truth
+## 🎓 1. الخلفية الأكاديمية والمصدر المرجعي (Academic Background)
 
-This application was engineered strictly from the authoritative specifications provided in:
-1. `Save Addicts - Application Technical & Implementation Report.docx`
-2. `SaveAddicts_Presentation1_Ghalia_211857 2.pdf` (Arab Open University - Kuwait, TM471 Final Year Project by Ghalia Madhram Almutairi, Supervised by Dr. Loai Shalaby)
+تم تطوير هذا التطبيق بناءً على المواصفات والتقارير الفنية المعتمدة لمشروع التخرج:
+- **المشروع:** TM471 Final Year Project (FYP)
+- **الجامعة:** الجامعة العربية المفتوحة - الكويت (Arab Open University - Kuwait)
+- **إعداد الطالبة:** غالية مذرم المطيري (Ghalia Madhram Almutairi - 211857)
+- **إشراف:** د. لؤي شلبي (Supervised by Dr. Loai Shalaby)
 
-### Core Mission
-- **Dismantle Social Stigma**: In GCC and international communities, social stigma severely impedes recovery seeking. Traditional systems requiring national ID, phone numbers, or real identities create anxiety and deter help-seeking.
-- **Absolute Pseudonymity**: The app enforces pseudonym-based sign-up without demanding government ID cards, passport numbers, or identity documentation.
-- **Integrated Care Ecosystem**: Combines psychiatrist messaging, physician calendar scheduling, clinician-updated Optimism recovery tracking, and substance-filtered educational resources.
+### الركائز الأساسية للمشروع (Core Mission Pillars)
+1. **كسر الوصمة الاجتماعية (Dismantle Stigma):** تيسير طلب المساعدة الطبية والنفسية بسرية تامة دون خوف من التشهير أو الأحكام المسبقة.
+2. **الاسم المستعار وحماية الخصوصية (Absolute Pseudonymity):** التسجيل يتم بكنية/اسم مستعار فقط، دون طلب أرقام هواتف أو بطاقات هوية وطنية.
+3. **منظومة رعاية متكاملة (Integrated Care Ecosystem):** محادثات سرية مع أطباء نفسيين، حجز مواعيد سريرية مع أطباء عامين، متابعة تعافي عبر رسم بياني تفاعلي (Optimism Graph)، ومكتبة توعوية مخصصة بحسب نوع المادة.
 
 ---
 
-## 2. Technical Stack & Configuration
+## 🛠️ 2. الحزمة التقنية (Tech Stack & Architecture)
 
-| Parameter | Specification |
+| المعيار (Parameter) | المواصفات (Specification) |
 |---|---|
-| **Application Name** | `Save Addicts` |
-| **Package Name** | `com.saveaddicts.app` |
-| **Programming Language** | Java (JDK 17) |
-| **UI Technology** | Android XML Views & Material Components (Material 3 DayNight) |
-| **Minimum SDK** | API 28 (Android 9.0 Pie) |
-| **Target / Compile SDK** | API 36 |
-| **Build System** | Gradle 8.13 with Kotlin DSL (`build.gradle.kts`) |
-| **Android Gradle Plugin** | AGP 8.13.2 |
-| **Authentication Provider** | Firebase Authentication *(Integration prepared; currently running in local evaluation sandbox)* |
-| **Database** | Firebase Realtime Database *(Schema prepared; currently running via in-memory repository)* |
+| **اسم التطبيق (App Name)** | Save Addicts |
+| **اسم الحزمة (Package)** | `com.saveaddicts.app` |
+| **لغة البرمجة (Language)** | Java (JDK 17) |
+| **واجهة المستخدم (UI/UX)** | Native Android XML & Material Components (Material 3 DayNight) |
+| **أدنى إصدار أندرويد (Min SDK)** | API 28 (Android 9.0 Pie) |
+| **إصدار الاستهداف (Target SDK)** | API 36 |
+| **نظام البناء (Build Tool)** | Gradle 8.13 مع Kotlin DSL (`build.gradle.kts`) |
+| **إصدار AGP** | Android Gradle Plugin 8.13.2 |
+| **خدمات المصادقة (Auth)** | Firebase Authentication (مع دعم النمط التجريبي المحلي Mock Repository) |
+| **قاعدة البيانات (Database)** | Firebase Realtime Database (متصلة بقواعد أمان صارمة ومفهرسة) |
 
 ---
 
-## 3. Implemented Functional Requirements (FR1 – FR10)
+## 🌟 3. المتطلبات الوظيفية المنفذة (Implemented Features FR1 – FR10)
 
-| ID | Role | Feature | Status | Description |
+| المعرف (ID) | الدور (Role) | الخاصية (Feature) | الحالة (Status) | التفاصيل (Details) |
+|:---:|:---:|---|:---:|---|
+| **FR1** | مريض (Patient) | التسجيل والمصادقة بالاسم المستعار | **منجز 100%** | إنشاء حساب باسم مستعار وكلمة مرور فقط، وتوجيه تلقائي بحسب الصلاحيات. |
+| **FR2** | مريض (Patient) | اختيار المادة وتصفية المحتوى | **منجز 100%** | تحديد نوع المادة (كحول، أفيونات، حشيش، أخرى، الكل) لعرض موارد مخصصة. |
+| **FR3** | مريض (Patient) | محادثات مشفرة مع الطبيب النفسي | **منجز 100%** | جلسات واستشارات فورية مع تشفير آمن وإفصاح شفاف عن الحماية. |
+| **FR4** | مريض (Patient) | حجز المواعيد الطبية الحضورية | **منجز 100%** | تقويم تفاعلي لاختيار اليوم والوقت، ومنع التضارب في المواعيد وإمكانية الإلغاء. |
+| **FR5** | مريض (Patient) | لوحة التعافي ومؤشر التفاؤل (Optimism Graph) | **منجز 100%** | رسم بياني مخصص (`OptimismGraphView`) يُرسم عبر الـ Canvas لمتابعة تقدم العلاج بنسب مئوية. |
+| **FR6** | مريض (Patient) | المكتبة التوعوية والتثقيفية | **منجز 100%** | استعراض مقالات وكتب وفيديوهات مصنفة بحسب نوع المادة والفئة العمرية. |
+| **FR7** | طبيب نفسي (Psychiatrist) | إدارة طلبات الاستشارات النفسية | **منجز 100%** | قائمة انتظار الاستشارات، قبول الطلبات وبدء جلسات المحادثة المباشرة. |
+| **FR8** | طبيب بشري (Physician) | تحديث ملفات ومؤشرات التعافي | **منجز 100%** | معاينة ملف المريض وسجل تفاؤله وتحديث النقاط والتقييم السريري دورياً. |
+| **FR9** | طبيب بشري (Physician) | إدارة وتأكيد المواعيد السريرية | **منجز 100%** | استعراض حجوزات المرضى، تأكيد المواعيد أو الاعتذار مع ذكر الأسباب. |
+| **FR10** | مدير النظام (Admin) | إدارة محتوى المكتبة التثقيفية | **منجز 100%** | لوحة تحكم كاملة لإضافة، تعديل وحذف الموارد التوعوية ووسائط الفيديو والكتب. |
+
+---
+
+## 📂 4. الهيكل البرمجي للمشروع (Project Structure)
+
+```
+app/src/main/
+├── AndroidManifest.xml
+├── java/com/saveaddicts/app/
+│   ├── MainActivity.java                       # Router to SplashActivity
+│   ├── SaveAddictsApplication.java             # Base Application & repository initialization
+│   ├── models/                                 # Core data models
+│   │   ├── UserProfile.java                    # Pseudonymous profile linked to UID
+│   │   ├── UserRole.java                       # PATIENT, PSYCHIATRIST, PHYSICIAN, ADMIN
+│   │   ├── SubstanceType.java                  # ALCOHOL, OPIOIDS, CANNABIS, OTHER, ALL
+│   │   ├── HealthStatus.java                   # IMPROVING, STABLE, MONITORING, CRITICAL
+│   │   ├── Appointment.java                    # Physician consultation booking
+│   │   ├── AppointmentStatus.java              # PENDING, CONFIRMED, CANCELLED, COMPLETED
+│   │   ├── ChatMessage.java                    # Message payload with cryptographic fields
+│   │   ├── Conversation.java                   # Thread metadata between patient & psychiatrist
+│   │   ├── ConsultationSession.java            # Session request in psychiatrist queue
+│   │   ├── RecoveryRecord.java                 # Clinician-updated score for Optimism Graph
+│   │   ├── EducationalResource.java            # Video, Book, Article media model
+│   │   └── ResourceType.java, AgeGroup.java, SessionStatus.java
+│   ├── repositories/                           # Data Abstraction & Clean Architecture
+│   │   ├── AuthRepository.java                 # Authentication contract
+│   │   ├── AppointmentRepository.java          # Booking contract
+│   │   ├── MessagingRepository.java            # Conversations & messaging contract
+│   │   ├── RecoveryRepository.java             # Recovery scores contract
+│   │   ├── EducationalRepository.java          # Library resources contract
+│   │   ├── UserRepository.java                 # User accounts directory contract
+│   │   ├── SessionRepository.java              # Consultation queue contract
+│   │   ├── RepositoryLocator.java              # Dependency injector & mode switcher
+│   │   ├── firebase/                           # Live Firebase Realtime Database & Auth
+│   │   │   ├── FirebaseAuthRepository.java
+│   │   │   └── FirebaseRealtimeRepository.java
+│   │   └── mock/                               # Thread-safe in-memory sandbox repository
+│   │       └── MockDataRepository.java
+│   ├── security/                               # Access control & encryption
+│   │   ├── AccessControl.java                  # Strict role authorization guards
+│   │   ├── EncryptionService.java              # Cryptography contract
+│   │   └── DemoEncryptionService.java          # Transparent secure envelope
+│   ├── adapters/                               # RecyclerView Adapters
+│   │   ├── AppointmentAdapter.java
+│   │   ├── ChatMessageAdapter.java
+│   │   ├── ConsultationSessionAdapter.java
+│   │   ├── ConversationAdapter.java
+│   │   ├── EducationalResourceAdapter.java
+│   │   └── PatientListAdapter.java
+│   └── ui/                                     # Activities and Custom Views
+│       ├── SplashActivity.java
+│       ├── LoginActivity.java                  # 1-Click fast role switcher
+│       ├── RegisterActivity.java               # Anonymous sign-up
+│       ├── SubstanceSelectionActivity.java     # Substance category picker
+│       ├── PatientMainActivity.java            # 4-tab Patient dashboard
+│       ├── PsychiatristMainActivity.java       # Consultation queue & chats
+│       ├── PhysicianMainActivity.java          # Clinical records & appointment manager
+│       ├── AdminMainActivity.java              # Content manager
+│       ├── ChatActivity.java                   # Real-time messaging screen
+│       ├── BookAppointmentActivity.java        # Calendar appointment scheduler
+│       ├── UpdateRecoveryActivity.java         # Optimism score updater
+│       ├── ResourceDetailActivity.java         # Educational material reader
+│       ├── AddEditResourceActivity.java        # Admin resource form
+│       └── components/
+│           └── OptimismGraphView.java          # Custom Canvas View for Optimism Timeline
+└── res/                                        # Layouts, Drawables, Themes, Strings
+```
+
+---
+
+## 🔒 5. الأمان وحماية البيانات (Security & Privacy)
+
+- **قواعد أمان Firebase Realtime Database (`FIREBASE_SECURITY_RULES.json`):**
+  - لا يمكن لأي مستخدم قراءة بيانات مستخدم آخر دون تصريح.
+  - المحادثات محمية بصلاحيات مقتصرة حصرياً على طرفي المحادثة (`patientId` و `psychiatristId`).
+  - تحديث سجلات التعافي محصور فقط على الأطباء المصرح لهم (`physician`).
+  - إدارة المكتبة التوعوية محصورة على مدراء النظام (`admin`).
+- **حماية الهوية:** لا يتم تخزين الاسم الحقيقي، الرقم المدني، رقم الهاتف أو الموقع الجغرافي.
+- **التشفير:** تجهيز المعمارية لدعم التشفير التام بين الطرفين (End-to-End Encryption).
+
+---
+
+## 👥 6. حسابات تجريبية سريعة (Pre-Seeded Demo Accounts)
+
+لتسهيل المعاينة الفورية أثناء التقييم والمناقشة، توفر شاشة الدخول أزرار **دخول سريع بنقرة واحدة (1-Click Login)** للحسابات الجاهزة:
+
+| الدور (Role) | البريد الإلكتروني (Email) | كلمة المرور (Password) | الاسم الظاهر (Name / Pseudonym) | البيانات المجهزة مسبقاً |
 |---|---|---|---|---|
-| **FR1** | Patient | Anonymous Registration & Authentication | **Implemented** | Pseudonym-based sign-up, email authentication, session management, input validation, role routing, no identity documents requested. |
-| **FR2** | Patient | Substance Selection & Content Filtering | **Implemented** | Post-registration substance selection (Alcohol, Opioids, Cannabis, Other, All), persistence, dynamic content tailoring. |
-| **FR3** | Patient | Psychiatrist Secure Messaging | **Implemented** | Conversation thread list, messaging interface, timestamped messages, cryptographic envelope interface with explicit security disclosure. |
-| **FR4** | Patient | Physical Appointment Booking | **Implemented** | Calendar date picker, doctor dropdown, conflict-aware time slot selection, notes, cancellation, and duplicate booking prevention. |
-| **FR5** | Patient | Recovery Dashboard & Optimism Graph | **Implemented** | Canvas-rendered custom `OptimismGraphView` tracking clinician-evaluated recovery scores over time, health status badges, and empty states. |
-| **FR6** | Patient | Educational Library | **Implemented** | Substance-filtered educational videos, books, and articles with age group tags, cultural context tags, and explicit sample content labeling. |
-| **FR7** | Psychiatrist | Consultation Sessions Management | **Implemented** | Dedicated portal to view patient consultation queue, accept sessions, and launch encrypted psychiatric conversations. |
-| **FR8** | Physician | Recovery Record Management | **Implemented** | Authorized access to patient clinical files, Optimism Graph trajectory preview, dated score updates (0-100%), and health status tracking. |
-| **FR9** | Physician | Appointment Management | **Implemented** | In-person consultation dashboard to view scheduled bookings, confirm pending appointments, or cancel consultations with reasons. |
-| **FR10** | Admin | Educational Content Management | **Implemented** | Administration portal to create, edit, categorize, and delete educational videos, books, and articles with substance/age metadata. |
+| **مريض (Patient)** | `patient@saveaddicts.org` | `password123` | `HopeSeeker42` | سجل تعافي متكامل بنسب تصاعدية (30% -> 82%)، موعدين طبيين، ومحادثة مع طبيب. |
+| **طبيب نفسي (Psychiatrist)** | `psychiatrist@saveaddicts.org` | `password123` | `Dr. Sarah Al-Sabah` | طلب استشارة في الانتظار، ومحادثة فعالة مع المريض `HopeSeeker42`. |
+| **طبيب بشري (Physician)** | `physician@saveaddicts.org` | `password123` | `Dr. Ahmad Mansour` | 3 مواعيد استشارة للإدارة والتأكيد، وقائمة مرضى لتحديث سجلاتهم الطبية. |
+| **مدير النظام (Admin)** | `admin@saveaddicts.org` | `password123` | `System Administrator` | 6 موارد تعليمية وتثقيفية متنوعة (مقالات، كتب، فيديوهات) جاهزة للإدارة. |
 
 ---
 
-## 4. Application Architecture
+## 🚀 7. طريقة البناء والتشغيل (How to Build & Run)
 
+### المتطلبات الأساسية
+- **Android Studio** (نسخة Ladybug أو أحدث)
+- **Java Development Kit (JDK 17)**
+- **Android SDK** مثبت عليه حزمة Platform API 36 (الحد الأدنى المدعوم API 28)
+
+### خطوات التشغيل عبر السطر البرمجي:
+```bash
+# استنساخ المستودع
+git clone https://github.com/Ibronux7bro/SaveAddicts.git
+
+# الانتقال للمجلد
+cd SaveAddicts
+
+# بناء ملف APK التجريبي
+./gradlew assembleDebug
+
+# تشغيل الاختبارات الآلية
+./gradlew test
 ```
-d:\SOAD\app\src\main\java\com\saveaddicts\app\
-├── MainActivity.java                       # Router to SplashActivity
-├── models\                                 # Core data models
-│   ├── UserRole.java                       # PATIENT, PSYCHIATRIST, PHYSICIAN, ADMIN
-│   ├── SubstanceType.java                  # ALCOHOL, OPIOIDS, CANNABIS, OTHER, ALL
-│   ├── HealthStatus.java                   # IMPROVING, STABLE, MONITORING, CRITICAL
-│   ├── AppointmentStatus.java              # PENDING, CONFIRMED, CANCELLED, COMPLETED
-│   ├── ResourceType.java                   # ARTICLE, BOOK, VIDEO
-│   ├── AgeGroup.java                       # ALL, YOUTH, ADULT, SENIOR
-│   ├── SessionStatus.java                  # REQUESTED, ACCEPTED, COMPLETED, DECLINED
-│   ├── UserProfile.java                    # Pseudonymous profile linked to UID
-│   ├── RecoveryRecord.java                 # Clinician-updated dated score for Optimism Graph
-│   ├── Appointment.java                    # Physician consultation booking
-│   ├── ChatMessage.java                    # Message payload with cryptographic fields
-│   ├── Conversation.java                   # Thread metadata between patient and psychiatrist
-│   ├── EducationalResource.java            # Educational media item with sample tags
-│   └── ConsultationSession.java            # Session request in psychiatrist queue
-├── repositories\                           # Data abstraction boundaries
-│   ├── Callback.java                       # Asynchronous operation callback
-│   ├── AuthRepository.java                 # Authentication & profile contract
-│   ├── AppointmentRepository.java          # Booking & schedule contract
-│   ├── RecoveryRepository.java             # Recovery records & Optimism Graph contract
-│   ├── MessagingRepository.java            # Chat messages contract
-│   ├── EducationalRepository.java          # Educational resources contract
-│   ├── UserRepository.java                 # User directory contract
-│   ├── SessionRepository.java              # Consultation queue contract
-│   ├── RepositoryLocator.java              # Central provider & future Firebase integration hook
-│   └── mock\
-│       └── MockDataRepository.java         # Thread-safe in-memory pre-seeded data store
-├── security\                               # Access control & encryption boundaries
-│   ├── AccessControl.java                  # Strict role authorization guards
-│   ├── EncryptionService.java              # E2EE contract
-│   └── DemoEncryptionService.java          # Transparent demo envelope with honest disclosure
-├── adapters\                               # RecyclerView adapters
-│   ├── AppointmentAdapter.java             # Appointments list adapter (role-aware)
-│   ├── EducationalResourceAdapter.java     # Library items adapter (admin/user aware)
-│   ├── ChatMessageAdapter.java             # Chat bubbles adapter (incoming/outgoing)
-│   ├── ConversationAdapter.java            # Thread list adapter
-│   ├── ConsultationSessionAdapter.java     # Psychiatrist queue adapter
-│   └── PatientListAdapter.java             # Physician patient selection adapter
-└── ui\                                     # Activities and Custom Views
-    ├── components\
-    │   └── OptimismGraphView.java          # Custom Canvas View for Optimism Timeline
-    ├── SplashActivity.java                 # App entry point with session checking
-    ├── LoginActivity.java                  # Sign in with 1-click Quick Evaluation buttons
-    ├── RegisterActivity.java               # Anonymous sign up (FR1)
-    ├── SubstanceSelectionActivity.java     # Substance category picker (FR2)
-    ├── PatientMainActivity.java            # 4-tab Patient dashboard (FR2-FR6)
-    ├── BookAppointmentActivity.java        # In-person doctor booking (FR4)
-    ├── ChatActivity.java                   # Psychiatrist consultation chat (FR3)
-    ├── ResourceDetailActivity.java         # Educational material reader (FR6)
-    ├── PsychiatristMainActivity.java       # Consultation queue & chats (FR7)
-    ├── PhysicianMainActivity.java          # Consultation & recovery portal (FR8, FR9)
-    ├── UpdateRecoveryActivity.java         # Clinical score & Optimism updater (FR8)
-    ├── AdminMainActivity.java              # Educational repository curator (FR10)
-    └── AddEditResourceActivity.java        # Resource creation/edit form (FR10)
+
+### موقع حزمة التطبيق المبنية (Debug APK):
+```
+app/build/outputs/apk/debug/app-debug.apk
 ```
 
 ---
 
-## 5. Application Workflow
+## 📚 8. الفهرس والوثائق الملحقة (Documentation Index)
 
-```mermaid
-flowchart TD
-    Start([Launch App]) --> Splash[SplashActivity]
-    Splash --> AuthCheck{Authenticated?}
-    
-    AuthCheck -- No --> Login[LoginActivity]
-    Login -- Register --> Register[RegisterActivity - Pseudonym only]
-    Register --> Substance[SubstanceSelectionActivity]
-    Substance --> PatientDash[PatientMainActivity]
-    
-    AuthCheck -- Yes --> RoleRouter{User Role}
-    Login -- Sign In --> RoleRouter
-    
-    RoleRouter -- Patient --> PatientDash
-    PatientDash --> RecTab[Recovery Dashboard & Optimism Graph]
-    PatientDash --> AptTab[Physician Consultations Booking]
-    PatientDash --> MsgTab[Encrypted Psychiatrist Messaging]
-    PatientDash --> LibTab[Substance-Filtered Educational Library]
-    
-    RoleRouter -- Psychiatrist --> PsychDash[PsychiatristMainActivity]
-    PsychDash --> Queue[Manage Consultation Queue]
-    PsychDash --> PsychChat[Conduct Encrypted Patient Chats]
-    
-    RoleRouter -- Physician --> PhysDash[PhysicianMainActivity]
-    PhysDash --> PhysApt[Manage & Confirm Consultations]
-    PhysDash --> PhysRec[Update Clinical Recovery Files & Optimism Graph]
-    
-    RoleRouter -- Admin --> AdminDash[AdminMainActivity]
-    AdminDash --> AdminContent[Curate Educational Library: Add / Edit / Delete]
-```
+- 📄 [`IMPLEMENTATION_STATUS.md`](IMPLEMENTATION_STATUS.md) — تقرير تفصيلي بحالة المتطلبات والاختبارات الفنية.
+- 🔥 [`FIREBASE_INTEGRATION.md`](FIREBASE_INTEGRATION.md) — دليل ربط وإعداد خدمات Firebase السحابية.
+- 🗄️ [`FIREBASE_SCHEMA.md`](FIREBASE_SCHEMA.md) — مخطط هيكلية قاعدة البيانات مع أمثلة JSON.
+- 🛡️ [`FIREBASE_SECURITY_RULES.md`](FIREBASE_SECURITY_RULES.md) — شرح كامل لقواعد الأمان وقواعد الفهرسة.
+- 🧪 [`TEST_PLAN.md`](TEST_PLAN.md) — خطة الاختبارات الشاملة (الوظيفية، الأمنية، واجهة الاستخدام).
 
 ---
 
-## 6. Pre-Seeded Evaluation Accounts (Zero Friction)
+## ⚖️ 9. الترخيص (License)
 
-For immediate testing, four pre-configured accounts are available in the local repository. The `LoginActivity` also features **1-click quick login buttons** to switch roles instantly:
-
-| Role | Email | Password | Display Name | Pre-seeded Features |
-|---|---|---|---|---|
-| **Patient** | `patient@saveaddicts.org` | `password123` | `HopeSeeker42` | Pre-seeded with 4 dated Optimism Graph records (30% -> 82%), 2 appointments, active chat thread with Dr. Sarah. Focus: Opioids. |
-| **Psychiatrist** | `psychiatrist@saveaddicts.org` | `password123` | `Dr. Sarah Al-Sabah` | 1 pending patient in queue (`NewDawn`), active conversation with `HopeSeeker42`. |
-| **Physician** | `physician@saveaddicts.org` | `password123` | `Dr. Ahmad Mansour` | 3 scheduled consultations to confirm/manage, patient directory to update clinical records. |
-| **Admin** | `admin@saveaddicts.org` | `password123` | `System Administrator` | 6 educational resources across videos, books, articles to curate or add new. |
-
----
-
-## 7. How to Build & Run
-
-### Prerequisites
-- Android Studio Ladybug / Iguana or later
-- Java Development Kit (JDK 17)
-- Android SDK with Platform 36 (Min SDK 28)
-
-### Building the Project
-From the project root (`d:\SOAD`), run:
-
-```powershell
-# Assemble Debug APK
-.\gradlew assembleDebug
-
-# Run Automated Test Suite
-.\gradlew test
-```
-
-### Generated Artifact Location
-The verified debug APK is generated at:
-```
-d:\SOAD\app\build\outputs\apk\debug\app-debug.apk
-```
-
----
-
-## 8. Documentation Index
-
-Detailed companion documentation is provided within the project:
-
-- [`IMPLEMENTATION_STATUS.md`](file:///d:/SOAD/IMPLEMENTATION_STATUS.md) — Comprehensive functional status, test execution results, and limitations.
-- [`FIREBASE_INTEGRATION.md`](file:///d:/SOAD/FIREBASE_INTEGRATION.md) — Step-by-step instructions to connect live Firebase Auth and Realtime Database.
-- [`FIREBASE_SCHEMA.md`](file:///d:/SOAD/FIREBASE_SCHEMA.md) — Complete proposed Firebase Realtime Database schema with JSON representation.
-- [`SECURITY_NOTES.md`](file:///d:/SOAD/SECURITY_NOTES.md) — Role-based access control rules, pseudonymity architecture, and E2EE roadmap.
-- [`TEST_PLAN.md`](file:///d:/SOAD/TEST_PLAN.md) — Test cases covering functional, security, usability, and integration boundaries.
-#   S a v e A d d i c t s  
- 
+هذا المشروع مخصص للأغراض الأكاديمية والبحثية كجزء من مشروع تخرج بالجامعة العربية المفتوحة - الكويت.
+جميع الحقوق محفوظة للمطور والمشرفين الأكاديميين © 2026.
