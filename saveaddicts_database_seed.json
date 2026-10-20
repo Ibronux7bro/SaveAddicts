@@ -1,0 +1,248 @@
+{
+  "users": {
+    "xE1MakQ68rME0kkmpm7gf6CI6Dc2": {
+      "uid": "xE1MakQ68rME0kkmpm7gf6CI6Dc2",
+      "pseudonym": "HopeSeeker42",
+      "email": "patient@saveaddicts.org",
+      "role": "PATIENT",
+      "substancePreference": "OPIOIDS",
+      "createdAt": 1710000000000
+    },
+    "sRdw9lMVZaWLvd4qkB4XC5U2XBf1": {
+      "uid": "sRdw9lMVZaWLvd4qkB4XC5U2XBf1",
+      "pseudonym": "Dr. Ahmad Mansour",
+      "email": "physician@saveaddicts.org",
+      "role": "PHYSICIAN",
+      "substancePreference": "ALL",
+      "createdAt": 1710000000000
+    },
+    "7MH8LK3JvJUf0jyvKWlZvZcgJfx2": {
+      "uid": "7MH8LK3JvJUf0jyvKWlZvZcgJfx2",
+      "pseudonym": "System Administrator",
+      "email": "admin@saveaddicts.org",
+      "role": "ADMIN",
+      "substancePreference": "ALL",
+      "createdAt": 1710000000000
+    },
+    "psychiatrist_01": {
+      "uid": "psychiatrist_01",
+      "pseudonym": "Dr. Sarah Al-Sabah",
+      "email": "psychiatrist@saveaddicts.org",
+      "role": "PSYCHIATRIST",
+      "substancePreference": "ALL",
+      "createdAt": 1710000000000
+    }
+  },
+  "educational_resources": {
+    "res_1": {
+      "id": "res_1",
+      "title": "Understanding Opioid Neurochemistry & Healing",
+      "description": "A scientific overview explaining how opioid receptors reset during recovery and methods to cope with cravings.",
+      "resourceType": "VIDEO",
+      "substanceType": "OPIOIDS",
+      "ageGroup": "ADULT",
+      "culturalContext": "GCC & International Clinical Context",
+      "authorOrSource": "Addiction Recovery Institute",
+      "contentBody": "In this comprehensive video lecture, clinical neuroscientists discuss how endorphin production stabilizes over months of abstinence, validating the patient's emotional journey.",
+      "isSampleContent": true,
+      "createdAt": 1710000000000
+    },
+    "res_2": {
+      "id": "res_2",
+      "title": "Walking Away from Alcohol: A Stigma-Free Guide",
+      "description": "Practical handbook for overcoming alcohol dependency while maintaining privacy in social and familial environments.",
+      "resourceType": "BOOK",
+      "substanceType": "ALCOHOL",
+      "ageGroup": "ALL",
+      "culturalContext": "Arabic & English Community Context",
+      "authorOrSource": "Community Health & Wellness Foundation",
+      "contentBody": "Chapter 1 outlines the social triggers common in family gatherings and offers scripted boundaries for declining drinks without disclosing private medical recovery.",
+      "isSampleContent": true,
+      "createdAt": 1710100000000
+    },
+    "res_3": {
+      "id": "res_3",
+      "title": "Cannabinoid Receptors and Youth Cognitive Recovery",
+      "description": "Empirical study on how the teenage and young adult brain repairs executive functioning after cannabis cessation.",
+      "resourceType": "ARTICLE",
+      "substanceType": "CANNABIS",
+      "ageGroup": "YOUTH",
+      "culturalContext": "Youth Mental Health Initiative",
+      "authorOrSource": "Dr. Leila Haddad",
+      "contentBody": "Research demonstrates that sleep quality, working memory, and motivation metrics show marked improvement within 21 days of cessation.",
+      "isSampleContent": true,
+      "createdAt": 1710200000000
+    },
+    "res_4": {
+      "id": "res_4",
+      "title": "Confidential Family Support & Breaking the Stigma",
+      "description": "How families can provide an empathetic, non-punitive support system for loved ones undergoing addiction rehabilitation.",
+      "resourceType": "ARTICLE",
+      "substanceType": "ALL",
+      "ageGroup": "ALL",
+      "culturalContext": "GCC Cultural Values & Family Care",
+      "authorOrSource": "Dr. L. Shalaby & Educators",
+      "contentBody": "Stigma remains the greatest barrier to recovery. By fostering privacy, patience, and professional medical partnership, recovery rates significantly improve.",
+      "isSampleContent": true,
+      "createdAt": 1710300000000
+    },
+    "res_5": {
+      "id": "res_5",
+      "title": "Mindfulness, Breathwork, and Relapse Prevention",
+      "description": "Guided audio-visual relaxation module to reduce cortisol and manage acute impulse moments.",
+      "resourceType": "VIDEO",
+      "substanceType": "ALL",
+      "ageGroup": "ADULT",
+      "culturalContext": "Universal",
+      "authorOrSource": "Holistic Mental Health Center",
+      "contentBody": "Step-by-step 4-7-8 breathing and sensory grounding exercises designed to halt neurological flight-or-fight distress.",
+      "isSampleContent": true,
+      "createdAt": 1710400000000
+    },
+    "res_6": {
+      "id": "res_6",
+      "title": "Seniors & Prescription Medication Safety",
+      "description": "Understanding the subtle emergence of opioid dependence in chronic pain management among senior citizens.",
+      "resourceType": "BOOK",
+      "substanceType": "PRESCRIPTION_DRUGS",
+      "ageGroup": "SENIOR",
+      "culturalContext": "Elderly Wellness Care",
+      "authorOrSource": "Geriatric Care Council",
+      "contentBody": "Addresses physical dependency versus addiction, dosage tapering strategies, and non-pharmacological pain relief methods.",
+      "isSampleContent": true,
+      "createdAt": 1710500000000
+    }
+  },
+  "recovery_records": {
+    "xE1MakQ68rME0kkmpm7gf6CI6Dc2": {
+      "rec_1": {
+        "id": "rec_1",
+        "patientId": "xE1MakQ68rME0kkmpm7gf6CI6Dc2",
+        "clinicianId": "sRdw9lMVZaWLvd4qkB4XC5U2XBf1",
+        "clinicianName": "Dr. Ahmad Mansour",
+        "optimismScore": 30,
+        "healthStatus": "CRITICAL",
+        "clinicalNotes": "Intake clinical evaluation. Patient initiated stabilization protocol.",
+        "timestamp": 1710100000000
+      },
+      "rec_2": {
+        "id": "rec_2",
+        "patientId": "xE1MakQ68rME0kkmpm7gf6CI6Dc2",
+        "clinicianId": "sRdw9lMVZaWLvd4qkB4XC5U2XBf1",
+        "clinicianName": "Dr. Ahmad Mansour",
+        "optimismScore": 48,
+        "healthStatus": "MONITORING",
+        "clinicalNotes": "Withdrawal managed safely. Patient adhering to medical schedule.",
+        "timestamp": 1710700000000
+      },
+      "rec_3": {
+        "id": "rec_3",
+        "patientId": "xE1MakQ68rME0kkmpm7gf6CI6Dc2",
+        "clinicianId": "sRdw9lMVZaWLvd4qkB4XC5U2XBf1",
+        "clinicianName": "Dr. Ahmad Mansour",
+        "optimismScore": 65,
+        "healthStatus": "STABLE",
+        "clinicalNotes": "Vital signs regularized. Positive participation in psychiatric counseling.",
+        "timestamp": 1711300000000
+      },
+      "rec_4": {
+        "id": "rec_4",
+        "patientId": "xE1MakQ68rME0kkmpm7gf6CI6Dc2",
+        "clinicianId": "sRdw9lMVZaWLvd4qkB4XC5U2XBf1",
+        "clinicianName": "Dr. Ahmad Mansour",
+        "optimismScore": 82,
+        "healthStatus": "IMPROVING",
+        "clinicalNotes": "Outstanding progress. Patient demonstrates psychological resilience and zero lapse.",
+        "timestamp": 1711900000000
+      }
+    }
+  },
+  "appointments": {
+    "apt_1": {
+      "id": "apt_1",
+      "patientId": "xE1MakQ68rME0kkmpm7gf6CI6Dc2",
+      "patientPseudonym": "HopeSeeker42",
+      "physicianId": "sRdw9lMVZaWLvd4qkB4XC5U2XBf1",
+      "physicianName": "Dr. Ahmad Mansour",
+      "date": "2026-11-05",
+      "timeSlot": "10:00 AM - 10:30 AM",
+      "status": "CONFIRMED",
+      "notes": "Routine in-person clinical checkup & toxicology screening.",
+      "createdAt": 1711800000000
+    },
+    "apt_2": {
+      "id": "apt_2",
+      "patientId": "xE1MakQ68rME0kkmpm7gf6CI6Dc2",
+      "patientPseudonym": "HopeSeeker42",
+      "physicianId": "sRdw9lMVZaWLvd4qkB4XC5U2XBf1",
+      "physicianName": "Dr. Ahmad Mansour",
+      "date": "2026-11-12",
+      "timeSlot": "02:00 PM - 02:30 PM",
+      "status": "PENDING",
+      "notes": "Nutritional recovery and physical wellness evaluation.",
+      "createdAt": 1711900000000
+    }
+  },
+  "conversations": {
+    "conv_patient_psych": {
+      "id": "conv_patient_psych",
+      "patientId": "xE1MakQ68rME0kkmpm7gf6CI6Dc2",
+      "patientPseudonym": "HopeSeeker42",
+      "psychiatristId": "psychiatrist_01",
+      "psychiatristName": "Dr. Sarah Al-Sabah",
+      "lastMessageText": "Yes, the breathing exercises really helped reduce the panic urge. Thank you doctor.",
+      "lastMessageTimestamp": 1712000000000,
+      "unreadCount": 0
+    }
+  },
+  "messages": {
+    "conv_patient_psych": {
+      "msg_1": {
+        "id": "msg_1",
+        "conversationId": "conv_patient_psych",
+        "senderId": "xE1MakQ68rME0kkmpm7gf6CI6Dc2",
+        "senderPseudonym": "HopeSeeker42",
+        "senderRole": "PATIENT",
+        "receiverId": "psychiatrist_01",
+        "encryptedPayload": "ENC:DEMO:SGVsbG8gRG9jdG9yLCBJIHdhcyBmZWVsaW5nIGFuIGludGVuc2UgdXJnZSB0b2RheSBkdWUgdG8gd29yayBzdHJlc3Mu",
+        "messageText": "Hello Doctor, I was feeling an intense urge today due to work stress.",
+        "timestamp": 1711980000000
+      },
+      "msg_2": {
+        "id": "msg_2",
+        "conversationId": "conv_patient_psych",
+        "senderId": "psychiatrist_01",
+        "senderPseudonym": "Dr. Sarah Al-Sabah",
+        "senderRole": "PSYCHIATRIST",
+        "receiverId": "xE1MakQ68rME0kkmpm7gf6CI6Dc2",
+        "encryptedPayload": "ENC:DEMO:SGVsbG8gSG9wZVNlZWtlci4gVGhhdCBpcyBjb21wbGV0ZWx5IG5vcm1hbC4gUGxlYXNlIHJlY2FsbCBvdXIgY29nbml0aXZlIHJlZnJhbWluZyB0ZWNobmlxdWUu",
+        "messageText": "Hello HopeSeeker. That is completely normal. Please recall our cognitive reframing technique and take a 10-minute break.",
+        "timestamp": 1711990000000
+      },
+      "msg_3": {
+        "id": "msg_3",
+        "conversationId": "conv_patient_psych",
+        "senderId": "xE1MakQ68rME0kkmpm7gf6CI6Dc2",
+        "senderPseudonym": "HopeSeeker42",
+        "senderRole": "PATIENT",
+        "receiverId": "psychiatrist_01",
+        "encryptedPayload": "ENC:DEMO:WWVzLCB0aGUgYnJlYXRoaW5nIGV4ZXJjaXNlcyByZWFsbHkgaGVscGVkIHJlZHVjZSB0aGUgcGFuaWMgdXJnZS4gVGhhbmsgeW91IGRvY3Rvci4=",
+        "messageText": "Yes, the breathing exercises really helped reduce the panic urge. Thank you doctor.",
+        "timestamp": 1712000000000
+      }
+    }
+  },
+  "consultation_sessions": {
+    "sess_1": {
+      "id": "sess_1",
+      "patientId": "xE1MakQ68rME0kkmpm7gf6CI6Dc2",
+      "patientPseudonym": "HopeSeeker42",
+      "psychiatristId": "psychiatrist_01",
+      "psychiatristName": "Dr. Sarah Al-Sabah",
+      "substanceType": "OPIOIDS",
+      "status": "ACCEPTED",
+      "notes": "Ongoing psychiatric guidance and relapse prevention.",
+      "createdAt": 1711900000000
+    }
+  }
+}
