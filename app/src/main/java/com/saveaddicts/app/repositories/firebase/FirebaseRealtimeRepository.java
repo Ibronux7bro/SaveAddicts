@@ -1,5 +1,6 @@
 package com.saveaddicts.app.repositories.firebase;
 
+import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,6 +27,8 @@ public class FirebaseRealtimeRepository implements
         EducationalRepository,
         UserRepository,
         SessionRepository {
+
+    private static final String TAG = "FirebaseRealtimeRepo";
 
     private final DatabaseReference rootRef;
     private final DatabaseReference usersRef;
@@ -57,8 +60,12 @@ public class FirebaseRealtimeRepository implements
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Appointment> list = new ArrayList<>();
                 for (DataSnapshot child : snapshot.getChildren()) {
-                    Appointment apt = child.getValue(Appointment.class);
-                    if (apt != null) list.add(apt);
+                    try {
+                        Appointment apt = child.getValue(Appointment.class);
+                        if (apt != null) list.add(apt);
+                    } catch (Exception e) {
+                        Log.e(TAG, "Failed parsing appointment for patient: " + child.getKey(), e);
+                    }
                 }
                 Collections.sort(list, (a, b) -> Long.compare(b.getCreatedAt(), a.getCreatedAt()));
                 callback.onSuccess(list);
@@ -78,8 +85,12 @@ public class FirebaseRealtimeRepository implements
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Appointment> list = new ArrayList<>();
                 for (DataSnapshot child : snapshot.getChildren()) {
-                    Appointment apt = child.getValue(Appointment.class);
-                    if (apt != null) list.add(apt);
+                    try {
+                        Appointment apt = child.getValue(Appointment.class);
+                        if (apt != null) list.add(apt);
+                    } catch (Exception e) {
+                        Log.e(TAG, "Failed parsing appointment for physician: " + child.getKey(), e);
+                    }
                 }
                 Collections.sort(list, (a, b) -> Long.compare(b.getCreatedAt(), a.getCreatedAt()));
                 callback.onSuccess(list);
@@ -187,9 +198,13 @@ public class FirebaseRealtimeRepository implements
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Set<String> takenSlots = new HashSet<>();
                         for (DataSnapshot child : snapshot.getChildren()) {
-                            Appointment a = child.getValue(Appointment.class);
-                            if (a != null && a.getDate().equals(date) && a.getStatus() != AppointmentStatus.CANCELLED) {
-                                takenSlots.add(a.getTimeSlot());
+                            try {
+                                Appointment a = child.getValue(Appointment.class);
+                                if (a != null && a.getDate().equals(date) && a.getStatus() != AppointmentStatus.CANCELLED) {
+                                    takenSlots.add(a.getTimeSlot());
+                                }
+                            } catch (Exception e) {
+                                Log.e(TAG, "Failed parsing appointment slot: " + child.getKey(), e);
                             }
                         }
                         List<String> available = new ArrayList<>();
@@ -215,8 +230,12 @@ public class FirebaseRealtimeRepository implements
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<RecoveryRecord> list = new ArrayList<>();
                 for (DataSnapshot child : snapshot.getChildren()) {
-                    RecoveryRecord r = child.getValue(RecoveryRecord.class);
-                    if (r != null) list.add(r);
+                    try {
+                        RecoveryRecord r = child.getValue(RecoveryRecord.class);
+                        if (r != null) list.add(r);
+                    } catch (Exception e) {
+                        Log.e(TAG, "Failed parsing recovery record: " + child.getKey(), e);
+                    }
                 }
                 Collections.sort(list, Comparator.comparingLong(RecoveryRecord::getTimestamp));
                 callback.onSuccess(list);
@@ -260,8 +279,12 @@ public class FirebaseRealtimeRepository implements
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         HealthStatus status = HealthStatus.STABLE;
                         for (DataSnapshot child : snapshot.getChildren()) {
-                            RecoveryRecord r = child.getValue(RecoveryRecord.class);
-                            if (r != null) status = r.getHealthStatus();
+                            try {
+                                RecoveryRecord r = child.getValue(RecoveryRecord.class);
+                                if (r != null) status = r.getHealthStatus();
+                            } catch (Exception e) {
+                                Log.e(TAG, "Failed parsing latest recovery record: " + child.getKey(), e);
+                            }
                         }
                         callback.onSuccess(status);
                     }
@@ -290,9 +313,13 @@ public class FirebaseRealtimeRepository implements
                     @Override
                     public void onDataChange(@NonNull DataSnapshot patientSnap) {
                         for (DataSnapshot child : patientSnap.getChildren()) {
-                            Conversation c = child.getValue(Conversation.class);
-                            if (c != null && c.getId() != null) {
-                                convMap.put(c.getId(), c);
+                            try {
+                                Conversation c = child.getValue(Conversation.class);
+                                if (c != null && c.getId() != null) {
+                                    convMap.put(c.getId(), c);
+                                }
+                            } catch (Exception e) {
+                                Log.e(TAG, "Failed parsing conversation: " + child.getKey(), e);
                             }
                         }
 
@@ -302,9 +329,13 @@ public class FirebaseRealtimeRepository implements
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot psychSnap) {
                                         for (DataSnapshot child : psychSnap.getChildren()) {
-                                            Conversation c = child.getValue(Conversation.class);
-                                            if (c != null && c.getId() != null) {
-                                                convMap.put(c.getId(), c);
+                                            try {
+                                                Conversation c = child.getValue(Conversation.class);
+                                                if (c != null && c.getId() != null) {
+                                                    convMap.put(c.getId(), c);
+                                                }
+                                            } catch (Exception e) {
+                                                Log.e(TAG, "Failed parsing conversation: " + child.getKey(), e);
                                             }
                                         }
 
@@ -334,8 +365,12 @@ public class FirebaseRealtimeRepository implements
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<ChatMessage> list = new ArrayList<>();
                 for (DataSnapshot child : snapshot.getChildren()) {
-                    ChatMessage msg = child.getValue(ChatMessage.class);
-                    if (msg != null) list.add(msg);
+                    try {
+                        ChatMessage msg = child.getValue(ChatMessage.class);
+                        if (msg != null) list.add(msg);
+                    } catch (Exception e) {
+                        Log.e(TAG, "Failed parsing message: " + child.getKey(), e);
+                    }
                 }
                 Collections.sort(list, Comparator.comparingLong(ChatMessage::getTimestamp));
                 callback.onSuccess(list);
@@ -395,10 +430,14 @@ public class FirebaseRealtimeRepository implements
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot child : snapshot.getChildren()) {
-                    Conversation c = child.getValue(Conversation.class);
-                    if (c != null && patientId.equals(c.getPatientId()) && psychiatristId.equals(c.getPsychiatristId())) {
-                        callback.onSuccess(c);
-                        return;
+                    try {
+                        Conversation c = child.getValue(Conversation.class);
+                        if (c != null && patientId.equals(c.getPatientId()) && psychiatristId.equals(c.getPsychiatristId())) {
+                            callback.onSuccess(c);
+                            return;
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, "Failed parsing conversation in getOrCreate: " + child.getKey(), e);
                     }
                 }
 
@@ -436,17 +475,21 @@ public class FirebaseRealtimeRepository implements
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<EducationalResource> list = new ArrayList<>();
                 for (DataSnapshot child : snapshot.getChildren()) {
-                    EducationalResource r = child.getValue(EducationalResource.class);
-                    if (r != null) {
-                        boolean matchSubstance = (substanceFilter == null || substanceFilter == SubstanceType.ALL
-                                || r.getSubstanceType() == SubstanceType.ALL || r.getSubstanceType() == substanceFilter);
-                        boolean matchType = (typeFilter == null || r.getResourceType() == typeFilter);
-                        boolean matchAge = (ageFilter == null || ageFilter == AgeGroup.ALL
-                                || r.getAgeGroup() == AgeGroup.ALL || r.getAgeGroup() == ageFilter);
+                    try {
+                        EducationalResource r = child.getValue(EducationalResource.class);
+                        if (r != null) {
+                            boolean matchSubstance = (substanceFilter == null || substanceFilter == SubstanceType.ALL
+                                    || r.getSubstanceType() == SubstanceType.ALL || r.getSubstanceType() == substanceFilter);
+                            boolean matchType = (typeFilter == null || r.getResourceType() == typeFilter);
+                            boolean matchAge = (ageFilter == null || ageFilter == AgeGroup.ALL
+                                    || r.getAgeGroup() == AgeGroup.ALL || r.getAgeGroup() == ageFilter);
 
-                        if (matchSubstance && matchType && matchAge) {
-                            list.add(r);
+                            if (matchSubstance && matchType && matchAge) {
+                                list.add(r);
+                            }
                         }
+                    } catch (Exception e) {
+                        Log.e(TAG, "Failed parsing educational resource: " + child.getKey(), e);
                     }
                 }
                 callback.onSuccess(list);
@@ -466,8 +509,12 @@ public class FirebaseRealtimeRepository implements
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<EducationalResource> list = new ArrayList<>();
                 for (DataSnapshot child : snapshot.getChildren()) {
-                    EducationalResource r = child.getValue(EducationalResource.class);
-                    if (r != null) list.add(r);
+                    try {
+                        EducationalResource r = child.getValue(EducationalResource.class);
+                        if (r != null) list.add(r);
+                    } catch (Exception e) {
+                        Log.e(TAG, "Failed parsing educational resource: " + child.getKey(), e);
+                    }
                 }
                 callback.onSuccess(list);
             }
@@ -484,11 +531,16 @@ public class FirebaseRealtimeRepository implements
         educationalRef.child(resourceId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                EducationalResource r = snapshot.getValue(EducationalResource.class);
-                if (r != null) {
-                    callback.onSuccess(r);
-                } else {
-                    callback.onError(new NoSuchElementException("Resource not found."));
+                try {
+                    EducationalResource r = snapshot.getValue(EducationalResource.class);
+                    if (r != null) {
+                        callback.onSuccess(r);
+                    } else {
+                        callback.onError(new NoSuchElementException("Resource not found: " + resourceId));
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "Failed parsing educational resource: " + resourceId, e);
+                    callback.onError(e);
                 }
             }
 
@@ -534,8 +586,12 @@ public class FirebaseRealtimeRepository implements
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<UserProfile> list = new ArrayList<>();
                 for (DataSnapshot child : snapshot.getChildren()) {
-                    UserProfile u = child.getValue(UserProfile.class);
-                    if (u != null) list.add(u);
+                    try {
+                        UserProfile u = child.getValue(UserProfile.class);
+                        if (u != null) list.add(u);
+                    } catch (Exception e) {
+                        Log.e(TAG, "Failed parsing user profile: " + child.getKey(), e);
+                    }
                 }
                 callback.onSuccess(list);
             }
@@ -552,11 +608,16 @@ public class FirebaseRealtimeRepository implements
         usersRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                UserProfile u = snapshot.getValue(UserProfile.class);
-                if (u != null) {
-                    callback.onSuccess(u);
-                } else {
-                    callback.onError(new NoSuchElementException("User not found: " + uid));
+                try {
+                    UserProfile u = snapshot.getValue(UserProfile.class);
+                    if (u != null) {
+                        callback.onSuccess(u);
+                    } else {
+                        callback.onError(new NoSuchElementException("User not found: " + uid));
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "Failed parsing user profile: " + uid, e);
+                    callback.onError(e);
                 }
             }
 
@@ -577,8 +638,12 @@ public class FirebaseRealtimeRepository implements
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         List<ConsultationSession> list = new ArrayList<>();
                         for (DataSnapshot child : snapshot.getChildren()) {
-                            ConsultationSession s = child.getValue(ConsultationSession.class);
-                            if (s != null) list.add(s);
+                            try {
+                                ConsultationSession s = child.getValue(ConsultationSession.class);
+                                if (s != null) list.add(s);
+                            } catch (Exception e) {
+                                Log.e(TAG, "Failed parsing consultation session: " + child.getKey(), e);
+                            }
                         }
                         callback.onSuccess(list);
                     }
@@ -598,8 +663,12 @@ public class FirebaseRealtimeRepository implements
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         List<ConsultationSession> list = new ArrayList<>();
                         for (DataSnapshot child : snapshot.getChildren()) {
-                            ConsultationSession s = child.getValue(ConsultationSession.class);
-                            if (s != null) list.add(s);
+                            try {
+                                ConsultationSession s = child.getValue(ConsultationSession.class);
+                                if (s != null) list.add(s);
+                            } catch (Exception e) {
+                                Log.e(TAG, "Failed parsing pending session: " + child.getKey(), e);
+                            }
                         }
                         callback.onSuccess(list);
                     }

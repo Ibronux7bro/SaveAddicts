@@ -118,6 +118,10 @@ public class FirebaseAuthRepository implements AuthRepository {
         cachedProfile = null;
     }
 
+    public void setCachedProfile(UserProfile profile) {
+        this.cachedProfile = profile;
+    }
+
     @Override
     public UserProfile getCurrentUser() {
         if (cachedProfile != null) {
@@ -163,10 +167,27 @@ public class FirebaseAuthRepository implements AuthRepository {
     }
 
     private void fetchUserProfile(String uid, Callback<UserProfile> callback) {
+        android.util.Log.i("SaveAddicts", "fetchUserProfile called for UID: " + uid);
+        usersRef.getRoot().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot rootSnap) {
+                StringBuilder sb = new StringBuilder("Root keys: ");
+                for (DataSnapshot c : rootSnap.getChildren()) {
+                    sb.append(c.getKey()).append(" (count: ").append(c.getChildrenCount()).append("), ");
+                }
+                android.util.Log.i("SaveAddicts", sb.toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                android.util.Log.e("SaveAddicts", "Root read error: " + error.getMessage());
+            }
+        });
         usersRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 UserProfile profile = snapshot.getValue(UserProfile.class);
+                android.util.Log.i("SaveAddicts", "fetchUserProfile snapshot exists: " + snapshot.exists() + ", profile: " + profile);
                 if (profile != null) {
                     cachedProfile = profile;
                     callback.onSuccess(profile);

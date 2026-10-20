@@ -23,8 +23,8 @@ public class SaveAddictsApplication extends Application {
         // Enforce consistent light theme palette across all OEM devices
         androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
 
-        // Switch the service locator to the Firebase backend.
-        // Must be called before any Activity or Service accesses a repository.
-        RepositoryLocator.enableFirebaseBackend();
+        // Switch the service locator to the Mock backend for instant evaluation with rich pre-seeded data.
+        // Can be switched to RepositoryLocator.enableFirebaseBackend() when live cloud database is desired.
+        RepositoryLocator.enableMockBackend();
     }
 }

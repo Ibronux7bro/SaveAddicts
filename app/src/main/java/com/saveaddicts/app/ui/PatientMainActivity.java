@@ -398,6 +398,24 @@ public class PatientMainActivity extends AppCompatActivity {
             loadAppointments();
             loadConversations();
             loadLibraryResources();
+
+            RepositoryLocator.getUserRepository().getUserById(currentUser.getUid(), new Callback<UserProfile>() {
+                @Override
+                public void onSuccess(UserProfile profile) {
+                    if (profile != null) {
+                        currentUser = profile;
+                        setupHeader();
+                        if (profile.getSubstancePreference() != null) {
+                            currentSubstanceFilter = profile.getSubstancePreference();
+                        }
+                    }
+                }
+
+                @Override
+                public void onError(Exception exception) {
+                    // Retain existing profile
+                }
+            });
         }
     }
 }

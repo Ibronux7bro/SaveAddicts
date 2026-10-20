@@ -121,6 +121,10 @@ public class EducationalResource implements Serializable {
         isSampleContent = sampleContent;
     }
 
+    public void setIsSampleContent(boolean sampleContent) {
+        this.isSampleContent = sampleContent;
+    }
+
     public long getCreatedAt() {
         return createdAt;
     }

@@ -23,9 +23,28 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void checkAuthAndRoute() {
+        if (!RepositoryLocator.getAuthRepository().isAuthenticated()) {
+            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+            finish();
+            return;
+        }
+
         UserProfile currentUser = RepositoryLocator.getAuthRepository().getCurrentUser();
-        if (currentUser != null) {
-            routeUserByRole(currentUser);
+        if (currentUser != null && currentUser.getUid() != null) {
+            RepositoryLocator.getUserRepository().getUserById(currentUser.getUid(), new com.saveaddicts.app.repositories.Callback<UserProfile>() {
+                @Override
+                public void onSuccess(UserProfile profile) {
+                    if (RepositoryLocator.getAuthRepository() instanceof com.saveaddicts.app.repositories.firebase.FirebaseAuthRepository) {
+                        ((com.saveaddicts.app.repositories.firebase.FirebaseAuthRepository) RepositoryLocator.getAuthRepository()).setCachedProfile(profile);
+                    }
+                    routeUserByRole(profile);
+                }
+
+                @Override
+                public void onError(Exception error) {
+                    routeUserByRole(currentUser);
+                }
+            });
         } else {
             startActivity(new Intent(SplashActivity.this, LoginActivity.class));
             finish();

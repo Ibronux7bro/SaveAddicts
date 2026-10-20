@@ -8,6 +8,7 @@ public enum SubstanceType {
     ALCOHOL("Alcohol"),
     OPIOIDS("Opioids"),
     CANNABIS("Cannabis"),
+    PRESCRIPTION_DRUGS("Prescription Drugs"),
     OTHER("Other / Polysubstance");
 
     private final String displayName;
